@@ -211,7 +211,7 @@ export default function EnvironmentsPage() {
               placeholder="Tenant (e.g. elephantdev1-1) *" // Đánh dấu bắt buộc
               value={newEnv.tenant}
               onChange={(e) => setNewEnv({ ...newEnv, tenant: e.target.value })}
-              className="w-full sm:w-[250px]"
+              className="w-full sm:w-62.5"
             />
             <Input
               placeholder="Cluster (Optional)"
@@ -219,14 +219,14 @@ export default function EnvironmentsPage() {
               onChange={(e) =>
                 setNewEnv({ ...newEnv, cluster: e.target.value })
               }
-              className="w-full sm:w-[200px]"
+              className="w-full sm:w-50"
             />
             <Input
               placeholder="CIDR (Optional)"
               value={newEnv.cidr}
               onChange={(e) => setNewEnv({ ...newEnv, cidr: e.target.value })}
               onKeyDown={(e) => e.key === "Enter" && handleAdd()}
-              className="w-full sm:w-[200px]"
+              className="w-full sm:w-50"
             />
             <Button onClick={handleAdd} className="gap-2 w-full sm:w-auto">
               <Plus size={16} />
@@ -239,7 +239,7 @@ export default function EnvironmentsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[50px]">#</TableHead>
+                  <TableHead className="w-12.5">#</TableHead>
                   <TableHead className="w-[30%]">Tenant</TableHead>
                   <TableHead className="w-[30%]">Cluster</TableHead>
                   <TableHead className="w-[20%]">CIDR</TableHead>

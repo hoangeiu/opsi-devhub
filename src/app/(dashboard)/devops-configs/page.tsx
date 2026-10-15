@@ -244,7 +244,7 @@ export default function DevOpsConfigsPage() {
           </span>
           <Select
             value={activeEnv}
-            onValueChange={(val) => dispatch(setActiveEnv(val))}
+            onValueChange={(val) => dispatch(setActiveEnv(val || ""))}
           >
             <SelectTrigger className="w-45 h-8 bg-background">
               <SelectValue placeholder="Select environment..." />
