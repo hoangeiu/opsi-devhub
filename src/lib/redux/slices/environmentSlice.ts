@@ -6,7 +6,7 @@ interface EnvironmentState {
 }
 
 const initialState: EnvironmentState = {
-  activeEnv: null,
+  activeEnv: "",
   environments: [],
 };
 
