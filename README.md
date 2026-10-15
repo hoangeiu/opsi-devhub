@@ -7,7 +7,10 @@ This project is a centralized internal web application designed to manage develo
 - **Core Framework:** Next.js (App Router) with React and TypeScript.
 - **Styling & UI Components:** Tailwind CSS paired with Shadcn UI. This combination provides professional, highly customizable components (e.g., Sidebar, Command Palette, Dialog, Toast) without the bloat of heavy component libraries.
 - **Database (BaaS):** Supabase (PostgreSQL). Used for direct CRUD operations from the client/server components, eliminating the need for a separate backend API layer.
-- **State Management:** Zustand. A lightweight solution to manage global states, such as the "currently selected environment" across different pages.
+- **State Management:** Redux Toolkit (`@reduxjs/toolkit`). 
+  - Integrated with Next.js App Router using a dedicated Client Component wrapper (`StoreProvider.tsx`).
+  - Manages cross-page global states centrally, such as the currently active target environment (`activeEnv`), ensuring consistency when navigating between the Token Manager and Commands pages.
+  - Architected with feature slices to easily accommodate future state complexity as the internal toolset scales.
 - **Syntax Highlighting:** `react-syntax-highlighter` for rendering formatted YAML, JSON, and Bash scripts with proper syntax colors.
 
 ## 📐 UI Layout & Architecture
