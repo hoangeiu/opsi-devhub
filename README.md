@@ -45,9 +45,9 @@ The application follows a standard documentation/dashboard layout optimized for 
 
 - **Purpose:** Store structured JSON payloads for AI testing and prompt evaluations.
 - **Features:**
-  - Displays data in a **Card Grid** layout showing the Title and a truncated Description.
-  - `Copy JSON` button compiles the structured data (Conclusion, Work Notes, etc.) into a valid JSON string to the clipboard.
-  - `Edit` button opens a Modal/Dialog containing a Textarea for raw JSON manipulation.
+  - Displays data in a **Collapsible List** layout, grouping data items under distinct Test Suites/Collections.
+  - Stores flexible JSONB payloads capable of handling raw JSON strings, URLs, or plain text log snippets.
+  - Features a Smart Copy button providing instant visual feedback (turns green with "OK" for 5 seconds) to streamline the testing process.
 
 ### 4. `/devops-configs` (Infrastructure Documentation)
 
@@ -55,6 +55,7 @@ The application follows a standard documentation/dashboard layout optimized for 
 - **Features:**
   - Markdown-based documentation viewer.
   - Syntax-highlighted code blocks with dedicated one-click copy buttons.
+  - Features variable interpolation (dynamically replaces `{{ENV}}` variables in the Markdown with the Redux active environment).
 
 ### 5. `/settings/environments` (Global Configuration)
 
@@ -71,3 +72,4 @@ The architecture is designed to be highly modular. Future extensions may include
 - **Log Viewer:** A dedicated page to aggregate and tail logs from different namespaces.
 - **Code Formatters & Converters:** Built-in utilities for JSON formatting, Base64 encoding/decoding, and JWT decoding.
 - **Role-Based Access Control (RBAC):** Implementing Supabase Auth to restrict sensitive environment configurations to specific team members.
+- **AI Test Data Hierarchy & Tagging:** Expanding the AI Test Data structure to include a top-level "Subject" layer (which encapsulates multiple Test Collections). Additionally, introducing a badge/tagging system to allow for rapid filtering and organization of test cases.

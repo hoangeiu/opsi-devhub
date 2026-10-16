@@ -51,10 +51,8 @@ CREATE TRIGGER update_commands_modtime BEFORE UPDATE ON commands FOR EACH ROW EX
 
 CREATE TABLE ai_test_data (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  title VARCHAR NOT NULL,
-  description TEXT,
-  conclusion TEXT,
-  work_notes JSONB DEFAULT '[]'::jsonb,
+  title VARCHAR NOT NULL, -- Name of the test data collection
+  items JSONB DEFAULT '[]'::jsonb,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
