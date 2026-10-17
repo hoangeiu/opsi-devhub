@@ -1,26 +1,27 @@
 "use client";
 
-import { useEffect, useState, useCallback, useMemo } from "react";
 import {
-  Plus,
-  Trash2,
-  Edit2,
-  Save,
-  X,
-  Loader2,
-  Copy,
-  Search,
-  ChevronRight,
   Check,
-  Link as LinkIcon,
+  ChevronRight,
+  Copy,
+  Edit2,
   FileJson,
+  Link as LinkIcon,
+  Loader2,
+  Plus,
+  Search,
+  Trash2,
 } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { supabase } from "@/lib/supabase/client";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   Dialog,
   DialogContent,
@@ -29,11 +30,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 // ----------------------------------------------------------------------
 // SMART COPY BUTTON (Tự đổi thành chữ OK màu xanh lá 5s)

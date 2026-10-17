@@ -1,29 +1,35 @@
 "use client";
 
-import { useEffect, useState, useCallback, useMemo } from "react";
 import {
-  Loader2,
-  Search,
-  TerminalSquare,
   Database as DbIcon,
   Edit2,
+  Loader2,
   Plus,
+  Search,
+  TerminalSquare,
   Trash2,
 } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/redux/store";
 import { setActiveEnv } from "@/lib/redux/slices/environmentSlice";
+import { RootState } from "@/lib/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
 import { supabase } from "@/lib/supabase/client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -32,13 +38,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 // ----------------------------------------------------------------------
 // TYPES
@@ -123,7 +123,20 @@ export default function CommandsPage() {
   }, [activeEnv, activeTab, dispatch]);
 
   useEffect(() => {
-    fetchData();
+    let isMounted = true;
+
+    const loadData = async () => {
+      await fetchData(); // Đợi fetch xong hoàn toàn
+      if (isMounted) {
+        setLoading(false); // Chỉ set state khi component vẫn đang tồn tại trên DOM
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [fetchData]);
 
   const handleSaveCategory = async () => {
@@ -230,7 +243,7 @@ export default function CommandsPage() {
             value={activeEnv}
             onValueChange={(val) => dispatch(setActiveEnv(val || ""))}
           >
-            <SelectTrigger className="w-[180px] h-8 bg-background">
+            <SelectTrigger className="w-45 h-8 bg-background">
               <SelectValue placeholder="Select environment..." />
             </SelectTrigger>
             <SelectContent>
@@ -325,8 +338,7 @@ export default function CommandsPage() {
                       return (
                         <Card
                           key={cmd.id}
-                          // ÉP GHI ĐÈ BIẾN CSS TRỰC TIẾP Ở ĐÂY BẰNG ![--card-spacing:0px]
-                          className="break-inside-avoid mb-4 overflow-hidden border-border/50 shadow-sm group ![--card-spacing:0px]"
+                          className="break-inside-avoid mb-4 overflow-hidden border-border/50 shadow-sm group [--card-spacing:0px]!"
                         >
                           <CardHeader className="p-3 pb-2 bg-muted/30 border-b flex flex-row items-center justify-between space-y-0">
                             <div className="flex items-center gap-2 overflow-hidden pr-2">
@@ -348,7 +360,7 @@ export default function CommandsPage() {
                           </CardHeader>
                           <CardContent className="p-0">
                             <SyntaxHighlighter
-                              style={vscDarkPlus as any}
+                              style={vscDarkPlus}
                               language="bash"
                               PreTag="div"
                               customStyle={{
@@ -374,7 +386,7 @@ export default function CommandsPage() {
 
       {/* DIALOG: NEW CATEGORY */}
       <Dialog open={isCatDialogOpen} onOpenChange={setIsCatDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-106.25">
           <DialogHeader>
             <DialogTitle>Add Category</DialogTitle>
           </DialogHeader>
@@ -400,7 +412,7 @@ export default function CommandsPage() {
 
       {/* DIALOG: EDIT / NEW COMMAND */}
       <Dialog open={isCmdDialogOpen} onOpenChange={setIsCmdDialogOpen}>
-        <DialogContent className="sm:max-w-[700px] w-full max-w-[90vw]">
+        <DialogContent className="sm:max-w-175 w-full max-w-[90vw]">
           <DialogHeader>
             <DialogTitle>
               {cmdForm.id === "new" ? "Add New Command" : "Edit Command"}
@@ -413,7 +425,7 @@ export default function CommandsPage() {
 
           <div className="flex flex-col gap-4 py-4 w-full">
             <div className="flex gap-4 w-full">
-              <div className="flex-[3] space-y-1">
+              <div className="flex-3 space-y-1">
                 <label className="text-xs font-semibold text-muted-foreground">
                   Title
                 </label>
@@ -426,14 +438,14 @@ export default function CommandsPage() {
                   className="w-full"
                 />
               </div>
-              <div className="flex-[2] space-y-1">
+              <div className="flex-2 space-y-1">
                 <label className="text-xs font-semibold text-muted-foreground">
                   Category
                 </label>
                 <Select
                   value={cmdForm.category_id}
                   onValueChange={(val) =>
-                    setCmdForm({ ...cmdForm, category_id: val })
+                    setCmdForm({ ...cmdForm, category_id: val || "" })
                   }
                 >
                   <SelectTrigger className="w-full">
@@ -465,7 +477,7 @@ export default function CommandsPage() {
                   setCmdForm({ ...cmdForm, template: e.target.value })
                 }
                 placeholder="kubectl get pod -n {{ENV}}"
-                className="min-h-[250px] font-mono text-sm bg-[#1e1e1e] text-green-400 border-none resize-none w-full"
+                className="min-h-62.5 font-mono text-sm bg-[#1e1e1e] text-green-400 border-none resize-none w-full"
                 spellCheck={false}
               />
             </div>
