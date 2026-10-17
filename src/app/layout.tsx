@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { TopHeader } from "@/components/top-header";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/toast";
 import StoreProvider from "@/lib/redux/StoreProvider";
 
@@ -30,19 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <StoreProvider>
-            <SidebarProvider>
-              <AppSidebar />
-
-              <SidebarInset className="overflow-hidden bg-background">
-                <TopHeader />
-
-                <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-                  {children}
-                </main>
-              </SidebarInset>
-            </SidebarProvider>
-          </StoreProvider>
+          <StoreProvider>{children}</StoreProvider>
 
           <Toaster />
         </ThemeProvider>
