@@ -126,7 +126,7 @@ export default function LoginPage() {
             />
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight">
-            Ops Hub
+            OpsI Hub
           </CardTitle>
           <CardDescription>
             Internal Operations & Developer Tools

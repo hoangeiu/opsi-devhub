@@ -106,7 +106,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     />
                   </div>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">Ops Hub</span>
+                    <span className="truncate font-semibold">OpsI Hub</span>
                     <span className="truncate text-xs text-muted-foreground">
                       Internal Tools
                     </span>

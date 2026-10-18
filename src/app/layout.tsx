@@ -9,7 +9,7 @@ import StoreProvider from "@/lib/redux/StoreProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ops Hub | Internal Tools",
+  title: "OpsI Hub | Internal Tools",
   description: "Centralized internal web application for ops and devs",
 };
 

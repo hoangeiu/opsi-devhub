@@ -113,7 +113,7 @@ export function TopHeader() {
         >
           <Search className="mr-2 h-4 w-4 shrink-0" />
           <span className="hidden sm:inline-flex truncate">
-            Search Ops Hub...
+            Search OpsI Hub...
           </span>
           <span className="inline-flex sm:hidden">Search</span>
           <kbd className="pointer-events-none absolute right-1.5 top-1.5 hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
@@ -130,7 +130,7 @@ export function TopHeader() {
         <DialogContent className="overflow-hidden p-0 shadow-xl sm:max-w-2xl bg-background border-border/50">
           <DialogTitle className="sr-only">Global Search</DialogTitle>
           <DialogDescription className="sr-only">
-            Search across the entire Ops Hub.
+            Search across the entire OpsI Hub.
           </DialogDescription>
 
           <Command className="w-full max-h-[70vh]">
