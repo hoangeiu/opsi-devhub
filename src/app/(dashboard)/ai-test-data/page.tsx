@@ -431,7 +431,7 @@ export default function AITestDataPage() {
 
       {/* DIALOG 1: TẠO/SỬA TÊN BỘ DATA (SUITE) */}
       <Dialog open={isSuiteDialogOpen} onOpenChange={setIsSuiteDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-106.25">
           <DialogHeader>
             <DialogTitle>
               {editingSuiteId ? "Edit Collection" : "New Test Collection"}
@@ -460,7 +460,7 @@ export default function AITestDataPage() {
 
       {/* DIALOG 2: TẠO/SỬA NỘI DUNG DATA (ITEM) */}
       <Dialog open={isItemDialogOpen} onOpenChange={setIsItemDialogOpen}>
-        <DialogContent className="sm:max-w-[700px] flex flex-col max-h-[90vh]">
+        <DialogContent className="sm:max-w-175 flex flex-col max-h-[90vh]">
           <DialogHeader>
             <DialogTitle>
               {editingItemId ? "Edit Data" : "Add Data to Collection"}
@@ -480,7 +480,7 @@ export default function AITestDataPage() {
               value={itemBodyInput}
               onChange={(e) => setItemBodyInput(e.target.value)}
               placeholder="Paste JSON or URL here..."
-              className="flex-1 min-h-[350px] font-mono text-sm bg-[#1e1e1e] text-green-400 border-none resize-none focus-visible:ring-1 focus-visible:ring-primary"
+              className="flex-1 min-h-87.5 font-mono text-sm bg-[#1e1e1e] text-green-400 border-none resize-none focus-visible:ring-1 focus-visible:ring-primary"
               spellCheck={false}
             />
           </div>

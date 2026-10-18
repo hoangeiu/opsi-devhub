@@ -1,6 +1,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Search } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
+import { LogoutButton } from "./logout";
 
 export function TopHeader() {
   return (
@@ -25,6 +26,7 @@ export function TopHeader() {
         </kbd>
       </div>
       <ModeToggle />
+      <LogoutButton />
     </header>
   );
 }

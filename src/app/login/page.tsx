@@ -1,6 +1,12 @@
 "use client";
 
-import { Loader2, ShieldCheck, TerminalSquare } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Loader2,
+  ShieldCheck,
+  TerminalSquare,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -18,6 +24,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -41,9 +48,11 @@ export default function LoginPage() {
         return;
       }
 
-      // Force refresh lại app để middleware lấy cookie mới và chuyển vào dashboard
-      window.location.href = "/";
-    } catch (err) {
+      // 1. Yêu cầu Next.js cập nhật lại cache/state để nhận diện HTTP-Only Cookie mới
+      router.refresh();
+      // 2. Chuyển hướng mượt mà bằng Next.js Router
+      router.push("/");
+    } catch {
       setError("Network error. Please try again.");
       setLoading(false);
     }
@@ -51,8 +60,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      {/* Background pattern (Tùy chọn) */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
+      {/* Background pattern */}
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-size-[60px_60px]" />
 
       <Card className="w-full max-w-md relative z-10 border-border/50 shadow-2xl">
         <CardHeader className="space-y-3 items-center text-center pb-6">
@@ -88,15 +97,29 @@ export default function LoginPage() {
               <label className="text-sm font-medium text-muted-foreground">
                 Password
               </label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
-                required
-                className="bg-muted/50"
-                autoComplete="current-password"
-              />
+              <div className="relative">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  required
+                  className="bg-muted/50 pr-10"
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  title={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff className="size-4" />
+                  ) : (
+                    <Eye className="size-4" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {error && (
