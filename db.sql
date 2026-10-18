@@ -76,11 +76,23 @@ CREATE TABLE users (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 3. Trigger tự động cập nhật ngày sửa
+-- Auto update the updated_at column on row update
 CREATE TRIGGER update_users_modtime 
 BEFORE UPDATE ON users 
 FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
 
+CREATE TABLE future_enhancements (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    title VARCHAR NOT NULL,
+    requester VARCHAR NOT NULL,
+    description TEXT NOT NULL,
+    status VARCHAR DEFAULT 'open',
+    resolver VARCHAR,
+    resolved_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+----------------- ADD DATA ----------------- 
 
 INSERT INTO environments (tenant, cluster, cidr) VALUES
   ('elephantqc1', 'elephantqc1', '10.112.32.0/21'),
@@ -114,7 +126,6 @@ INSERT INTO command_categories (name, order_index) VALUES
 ('⚡ API & Testing', 6)
 ON CONFLICT (name) DO NOTHING;
 
--- 3. Thêm Commands
 INSERT INTO commands (category_id, title, template) VALUES
 -- 🌟 Top Favorites
 ((SELECT id FROM command_categories WHERE name = '🌟 Top Favorites'), 'Git: Rebase & Reset', '1. Combine Commits (Soft Reset):
